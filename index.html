@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prom Invitation 💖</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+        h1 {
+            color: #ff3399;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        button {
+            font-size: 20px;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+        .yes {
+            background-color: #66cc66;
+            color: white;
+        }
+        .no {
+            background-color: #ff6666;
+            color: white;
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: gold;
+            opacity: 0.7;
+            border-radius: 50%;
+            animation: fall 2s linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-100vh) translateX(0); opacity: 1; }
+            100% { transform: translateY(100vh) translateX(30px); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <h1 id="question">Will you go to prom with me? 💃🕺</h1>
+    <div class="buttons">
+        <button class="yes" onclick="sayYes()">Yes! 💖</button>
+        <button class="no" onclick="askAgain()">No 😢</button>
+    </div>
+
+    <script>
+        let yesButton = document.querySelector('.yes');
+        let noButton = document.querySelector('.no');
+        let questionText = document.getElementById('question');
+        let noPressCount = 0;
+        
+        function sayYes() {
+            document.body.style.background = "url('/mnt/data/WhatsApp Image 2025-03-30 at 10.47.46 AM.jpeg') no-repeat center center/cover";
+            document.body.innerHTML = "<h1 style='font-size: 3em; color: white; background: rgba(0, 0, 0, 0.5); padding: 20px; border-radius: 10px;'>So excited to go to prom with you!! 🎉💃🕺</h1>";
+            createConfetti();
+        }
+        
+        function askAgain() {
+            noPressCount++;
+            
+            const messages = [
+                "Are you sure? 🥺", 
+                "Think about it... 🤔", 
+                "Really? 😢", 
+                "Don't break my heart 💔", 
+                "Last chance! 😭", 
+                "Okay, now I'm just sad... 😭", 
+                "Fine, I'll keep waiting forever... 🥹"
+            ];
+            
+            if (noPressCount < messages.length) {
+                questionText.textContent = messages[noPressCount];
+            }
+            
+            let newSize = parseInt(window.getComputedStyle(yesButton).fontSize) * 2;
+            yesButton.style.fontSize = `${newSize}px`;
+            yesButton.style.padding = `${newSize / 3}px ${newSize / 2}px`;
+            
+            if (newSize > 300) {
+                yesButton.style.width = "100vw";
+                yesButton.style.height = "100vh";
+                yesButton.textContent = "YES!!! 💖🎉";
+                noButton.style.display = "none";
+            }
+        }
+        
+        function createConfetti() {
+            for (let i = 0; i < 100; i++) {
+                let confetti = document.createElement("div");
+                confetti.classList.add("confetti");
+                confetti.style.left = `${Math.random() * window.innerWidth}px`;
+                confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+    </script>
+</body>
+</html>
